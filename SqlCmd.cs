@@ -44,10 +44,17 @@ namespace com.rusanu.DBUtil {
 			BatchDelimiter = "GO";
 		}
 
-		/// <summary>
-		/// Execution Environment 
-		/// </summary>
-		public Environment Environment {
+        public SqlCmd(SqlConnection conn, SqlTransaction trx)
+        {
+            _environment = new Environment();
+            _environment.Connection = conn;
+            _environment.Transaction = trx;
+            BatchDelimiter = "GO";
+        }
+        /// <summary>
+        /// Execution Environment 
+        /// </summary>
+        public Environment Environment {
 			get { return _environment; }
 		}
 
@@ -376,7 +383,7 @@ namespace com.rusanu.DBUtil {
 						Environment, batch);
 					Executing (this, args);
 				}
-				var cmd = new SqlCommand (batch, Environment.Connection);
+				var cmd = new SqlCommand (batch, Environment.Connection, Environment.Transaction);
 				cmd.CommandTimeout = 0;
 				try {
 					LastBatch = batch;

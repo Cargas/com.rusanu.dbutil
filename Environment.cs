@@ -48,6 +48,12 @@ namespace com.rusanu.DBUtil
             set;
         }
 
+        public SqlTransaction Transaction
+        {
+            get;
+            set;
+        }
+
         internal Environment()
         {
             _variables = new Dictionary<string, string>();
